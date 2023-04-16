@@ -14,7 +14,7 @@ export default function ProblemDescription() {
         attempt to find the best combination of boxes to put in a warehouse, in
         wich you need to specify the warehouse area and the quantity of random
         boxes. For simplicity, assume both the warehouse and the boxes are
-        squares.
+        rectangles.
       </Typography>
     </Stack>
   );
