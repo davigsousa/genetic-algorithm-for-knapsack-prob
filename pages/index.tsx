@@ -1,11 +1,10 @@
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Stack } from "@mui/material";
 import Head from "next/head";
+import Header from "../components/header";
 
 export default function Home() {
   return (
-    <Stack direction="row" alignContent="center">
+    <Stack direction="column" alignItems="center" justifyContent="center">
       <Head>
         <title>More complex Knapsack Problem</title>
         <meta
@@ -16,11 +15,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container maxWidth="sm">
-        <Typography variant="h1" gutterBottom>
-          Home
-        </Typography>
-      </Container>
+      <Stack
+        direction="column"
+        maxWidth="sm"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Header />
+      </Stack>
     </Stack>
   );
 }
