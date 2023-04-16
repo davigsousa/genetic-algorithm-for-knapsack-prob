@@ -22,7 +22,12 @@ export default function BoxesList() {
         Generated boxes
       </Typography>
 
-      <Stack direction="row" flexWrap="wrap">
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        alignItems="center"
+        justifyContent="center"
+      >
         {sortedBoxes.map((box, index) => (
           <Box key={index} margin={1}>
             <Paper>
