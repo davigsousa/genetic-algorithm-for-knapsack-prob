@@ -72,7 +72,7 @@ export default function Boxes() {
               type="button"
               variant="contained"
             >
-              Start
+              Yes, let&apos;s go!
             </Button>
           </Box>
         </Box>
