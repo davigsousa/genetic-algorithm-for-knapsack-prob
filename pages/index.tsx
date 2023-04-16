@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import Head from "next/head";
-import Header from "../components/header";
-import { ProblemDescription } from "@/components/problem-description";
+import Header from "@/components/header";
+import ProblemDescription from "@/components/problem-description";
 
 export default function Home() {
   return (

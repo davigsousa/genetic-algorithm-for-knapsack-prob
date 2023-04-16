@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-export function ProblemDescription() {
+export default function ProblemDescription() {
   return (
     <Stack
       padding={3}
