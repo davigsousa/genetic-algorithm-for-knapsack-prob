@@ -1,5 +1,6 @@
 import { Stack, Typography, TextField, Box, Button } from "@mui/material";
 import { ChangeEvent, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ParamsInputs() {
   const [bagWidth, setBagWidth] = useState<number>();
@@ -8,7 +9,11 @@ export default function ParamsInputs() {
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(bagWidth, bagHeight, boxesQuantity);
+
+    if (!bagWidth || !bagHeight || !boxesQuantity) {
+      toast.error("Please, fill all the fields");
+      return;
+    }
   };
 
   return (
