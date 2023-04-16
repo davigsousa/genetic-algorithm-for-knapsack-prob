@@ -1,15 +1,15 @@
 import { useProblemParams } from "@/contexts/ProblemParams";
-import { Check, Inventory, Warehouse } from "@mui/icons-material";
+import { Check, Inventory, Warehouse, Info } from "@mui/icons-material";
 import { Stack, Typography, TextField, Box, Button } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function ParamsInputs() {
   const { updateParamsFromInputs, generatingParams } = useProblemParams();
-  const [warehouseWidth, setWarehouseWidth] = useState<number>();
-  const [warehouseHeight, setWarehouseHeight] = useState<number>();
-  const [warehouseWeight, setWarehouseWeight] = useState<number>();
-  const [boxesQuantity, setBoxesQuantity] = useState<number>();
+  const [warehouseWidth, setWarehouseWidth] = useState<string>("");
+  const [warehouseHeight, setWarehouseHeight] = useState<string>("");
+  const [warehouseWeight, setWarehouseWeight] = useState<string>("");
+  const [boxesQuantity, setBoxesQuantity] = useState<string>("");
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,12 +26,19 @@ export default function ParamsInputs() {
 
     updateParamsFromInputs({
       warehouse: {
-        width: warehouseWidth,
-        height: warehouseHeight,
-        weightLimit: warehouseWeight,
+        width: Number(warehouseWidth),
+        height: Number(warehouseHeight),
+        weightLimit: Number(warehouseWeight),
       },
-      numberOfBoxes: boxesQuantity,
+      numberOfBoxes: Number(boxesQuantity),
     });
+  };
+
+  const fillWithRecommendedParams = () => {
+    setWarehouseWidth("100");
+    setWarehouseHeight("100");
+    setWarehouseWeight("50");
+    setBoxesQuantity("20");
   };
 
   return (
@@ -62,7 +69,8 @@ export default function ParamsInputs() {
               variant="standard"
               label="Width"
               type="number"
-              onChange={(e) => setWarehouseWidth(Number(e.target.value))}
+              value={warehouseWidth}
+              onChange={(e) => setWarehouseWidth(e.target.value)}
             />
 
             <Box marginTop={2} width="100%">
@@ -72,7 +80,8 @@ export default function ParamsInputs() {
                 variant="standard"
                 label="Height"
                 type="number"
-                onChange={(e) => setWarehouseHeight(Number(e.target.value))}
+                value={warehouseHeight}
+                onChange={(e) => setWarehouseHeight(e.target.value)}
               />
             </Box>
 
@@ -83,7 +92,8 @@ export default function ParamsInputs() {
                 variant="standard"
                 label="Weight limit"
                 type="number"
-                onChange={(e) => setWarehouseWeight(Number(e.target.value))}
+                value={warehouseWeight}
+                onChange={(e) => setWarehouseWeight(e.target.value)}
               />
             </Box>
           </Stack>
@@ -111,19 +121,39 @@ export default function ParamsInputs() {
               variant="standard"
               label="Quantity of random boxes"
               type="number"
-              onChange={(e) => setBoxesQuantity(Number(e.target.value))}
+              value={boxesQuantity}
+              onChange={(e) => setBoxesQuantity(e.target.value)}
             />
           </Stack>
 
-          <Box marginTop={5}>
-            <Button
-              disabled={generatingParams}
-              endIcon={<Check />}
-              type="submit"
-              variant="contained"
-            >
-              Confirm params
-            </Button>
+          <Box
+            marginTop={5}
+            width="100%"
+            display="flex"
+            flexWrap="wrap"
+            alignItems="center"
+          >
+            <Box marginTop={1} marginRight={2}>
+              <Button
+                disabled={generatingParams}
+                endIcon={<Check />}
+                type="submit"
+                variant="contained"
+              >
+                Confirm params
+              </Button>
+            </Box>
+
+            <Box marginTop={1}>
+              <Button
+                onClick={fillWithRecommendedParams}
+                endIcon={<Info />}
+                type="button"
+                variant="outlined"
+              >
+                recommended params
+              </Button>
+            </Box>
           </Box>
         </Stack>
       </form>
