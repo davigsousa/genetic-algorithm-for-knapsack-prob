@@ -1,8 +1,11 @@
+import { useProblemParams } from "@/contexts/ProblemParams";
+import { Check, Inventory, Warehouse } from "@mui/icons-material";
 import { Stack, Typography, TextField, Box, Button } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function ParamsInputs() {
+  const { updateParamsFromInputs } = useProblemParams();
   const [bagWidth, setBagWidth] = useState<number>();
   const [bagHeight, setBagHeight] = useState<number>();
   const [boxesQuantity, setBoxesQuantity] = useState<number>();
@@ -14,6 +17,14 @@ export default function ParamsInputs() {
       toast.error("Please, fill all the fields");
       return;
     }
+
+    updateParamsFromInputs({
+      bag: {
+        width: bagWidth,
+        height: bagHeight,
+      },
+      numberOfBoxes: boxesQuantity,
+    });
   };
 
   return (
@@ -21,7 +32,20 @@ export default function ParamsInputs() {
       <form onSubmit={handleSubmit}>
         <Stack direction="column" padding={3}>
           <Stack direction="column">
-            <Typography variant="h6" gutterBottom>
+            <Typography
+              display="flex"
+              alignItems="center"
+              variant="h6"
+              gutterBottom
+            >
+              <Box
+                marginRight={1}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Warehouse />
+              </Box>
               Warehouse
             </Typography>
 
@@ -47,7 +71,20 @@ export default function ParamsInputs() {
           </Stack>
 
           <Stack marginTop={3} direction="column">
-            <Typography variant="h6" gutterBottom>
+            <Typography
+              display="flex"
+              alignItems="center"
+              variant="h6"
+              gutterBottom
+            >
+              <Box
+                marginRight={1}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Inventory />
+              </Box>
               Boxes
             </Typography>
 
@@ -61,7 +98,7 @@ export default function ParamsInputs() {
           </Stack>
 
           <Box marginTop={5}>
-            <Button type="submit" variant="contained">
+            <Button endIcon={<Check />} type="submit" variant="contained">
               Confirm params
             </Button>
           </Box>

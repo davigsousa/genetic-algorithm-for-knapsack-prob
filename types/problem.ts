@@ -3,7 +3,7 @@ export interface Bag {
   width: number;
 }
 
-export interface Item {
+export interface Box {
   height: number;
   width: number;
   priceValue: number;
