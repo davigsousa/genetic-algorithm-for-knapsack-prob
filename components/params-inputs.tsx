@@ -6,22 +6,29 @@ import { toast } from "react-toastify";
 
 export default function ParamsInputs() {
   const { updateParamsFromInputs } = useProblemParams();
-  const [bagWidth, setBagWidth] = useState<number>();
-  const [bagHeight, setBagHeight] = useState<number>();
+  const [warehouseWidth, setWarehouseWidth] = useState<number>();
+  const [warehouseHeight, setWarehouseHeight] = useState<number>();
+  const [warehouseWeight, setWarehouseWeight] = useState<number>();
   const [boxesQuantity, setBoxesQuantity] = useState<number>();
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!bagWidth || !bagHeight || !boxesQuantity) {
+    if (
+      !warehouseWidth ||
+      !warehouseHeight ||
+      !warehouseWeight ||
+      !boxesQuantity
+    ) {
       toast.error("Please, fill all the fields");
       return;
     }
 
     updateParamsFromInputs({
-      bag: {
-        width: bagWidth,
-        height: bagHeight,
+      warehouse: {
+        width: warehouseWidth,
+        height: warehouseHeight,
+        weightLimit: warehouseWeight,
       },
       numberOfBoxes: boxesQuantity,
     });
@@ -55,7 +62,7 @@ export default function ParamsInputs() {
               variant="standard"
               label="Width"
               type="number"
-              onChange={(e) => setBagWidth(Number(e.target.value))}
+              onChange={(e) => setWarehouseWidth(Number(e.target.value))}
             />
 
             <Box marginTop={2} width="100%">
@@ -65,7 +72,18 @@ export default function ParamsInputs() {
                 variant="standard"
                 label="Height"
                 type="number"
-                onChange={(e) => setBagHeight(Number(e.target.value))}
+                onChange={(e) => setWarehouseHeight(Number(e.target.value))}
+              />
+            </Box>
+
+            <Box marginTop={2} width="100%">
+              <TextField
+                fullWidth
+                placeholder="only numbers"
+                variant="standard"
+                label="Weight limit"
+                type="number"
+                onChange={(e) => setWarehouseWeight(Number(e.target.value))}
               />
             </Box>
           </Stack>

@@ -1,6 +1,7 @@
-export interface Bag {
+export interface Warehouse {
   height: number;
   width: number;
+  weightLimit: number;
 }
 
 export interface Box {

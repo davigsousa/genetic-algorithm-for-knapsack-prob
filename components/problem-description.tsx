@@ -12,9 +12,9 @@ export default function ProblemDescription() {
       <Typography variant="body2">
         In this version of the knapsack problem, a Genetic Algorithm will
         attempt to find the best combination of boxes to put in a warehouse, in
-        which you need to specify the warehouse area and the quantity of random
-        boxes. For simplicity, assume both the warehouse and the boxes are
-        rectangles.
+        which you need to specify the warehouse area, weight limit and the
+        quantity of random boxes. For simplicity, assume both the warehouse and
+        the boxes are rectangles.
       </Typography>
     </Stack>
   );

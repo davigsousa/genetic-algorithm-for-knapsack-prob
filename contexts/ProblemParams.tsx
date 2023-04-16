@@ -1,13 +1,13 @@
-import { Bag, Box } from "@/types/problem";
+import { Warehouse, Box } from "@/types/problem";
 import React from "react";
 
 interface ProblemParams {
-  bag: Bag;
+  warehouse: Warehouse;
   boxes: Box[];
 }
 
 interface ParamsInputs {
-  bag: Bag;
+  warehouse: Warehouse;
   numberOfBoxes: number;
 }
 
