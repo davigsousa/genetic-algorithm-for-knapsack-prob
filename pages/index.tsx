@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import Head from "next/head";
 import Header from "@/components/header";
 import ProblemDescription from "@/components/problem-description";
+import ParamsInputs from "@/components/params-inputs";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       >
         <Header />
         <ProblemDescription />
+        <ParamsInputs />
       </Stack>
     </Stack>
   );
