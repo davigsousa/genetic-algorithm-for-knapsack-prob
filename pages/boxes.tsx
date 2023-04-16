@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import BoxesList from "@/components/boxes-list";
 import { Check, Info, ArrowBack } from "@mui/icons-material";
 
-export default function Home() {
+export default function Boxes() {
   const router = useRouter();
   const { params } = useProblemParams();
 
@@ -66,7 +66,12 @@ export default function Home() {
           </Box>
 
           <Box marginTop={1}>
-            <Button endIcon={<Check />} type="button" variant="contained">
+            <Button
+              onClick={() => router.push("/solving")}
+              endIcon={<Check />}
+              type="button"
+              variant="contained"
+            >
               Start
             </Button>
           </Box>
