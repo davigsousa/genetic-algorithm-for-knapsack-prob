@@ -9,7 +9,7 @@ export default function BoxesList() {
     params?.boxes.sort((a, b) => b.priceValue - a.priceValue) || [];
 
   return (
-    <Stack width="100%" direction="column" padding={3}>
+    <Stack width="100%" direction="column" marginTop={3}>
       <Typography display="flex" alignItems="center" variant="h6" gutterBottom>
         <Box
           marginRight={1}
