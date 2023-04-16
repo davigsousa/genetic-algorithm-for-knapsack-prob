@@ -19,7 +19,7 @@ export default function BoxesList() {
         >
           <Inventory />
         </Box>
-        Boxes
+        Generated boxes
       </Typography>
 
       <Stack direction="row" flexWrap="wrap">
