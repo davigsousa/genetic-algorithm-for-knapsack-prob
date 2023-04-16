@@ -1,4 +1,5 @@
 import { Warehouse, Box } from "@/types/problem";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface ProblemParams {
@@ -13,6 +14,7 @@ interface ParamsInputs {
 
 interface ProblemParamsContextType {
   params: ProblemParams | null;
+  generatingParams: boolean;
   updateParamsFromInputs: (inputs: ParamsInputs) => void;
 }
 
@@ -24,14 +26,40 @@ export function ProblemParamsProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const [generatingParams, setGeneratingParams] =
+    React.useState<boolean>(false);
   const [params, setParams] = React.useState<ProblemParams | null>(null);
 
-  const updateParamsFromInputs = (inputs: ParamsInputs) => {};
+  const updateParamsFromInputs = ({
+    warehouse,
+    numberOfBoxes,
+  }: ParamsInputs) => {
+    setGeneratingParams(true);
+
+    const generateRandomNumber = (min: number = 1, max: number = 10) =>
+      Math.floor(Math.random() * (max - min + 1)) + min;
+
+    const boxes: Box[] = [];
+    for (let i = 0; i < numberOfBoxes; i++) {
+      boxes.push({
+        width: generateRandomNumber(1, warehouse.width - 1),
+        height: generateRandomNumber(1, warehouse.height - 1),
+        weight: generateRandomNumber(1, warehouse.weightLimit - 1),
+        priceValue: generateRandomNumber(1, 50),
+      });
+    }
+
+    setParams({ warehouse, boxes });
+    setGeneratingParams(false);
+    router.push("/boxes");
+  };
 
   return (
     <ProblemParamsContext.Provider
       value={{
         params,
+        generatingParams,
         updateParamsFromInputs,
       }}
     >

@@ -7,5 +7,6 @@ export interface Warehouse {
 export interface Box {
   height: number;
   width: number;
+  weight: number;
   priceValue: number;
 }

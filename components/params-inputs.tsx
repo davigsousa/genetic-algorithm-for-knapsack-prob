@@ -5,7 +5,7 @@ import { ChangeEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function ParamsInputs() {
-  const { updateParamsFromInputs } = useProblemParams();
+  const { updateParamsFromInputs, generatingParams } = useProblemParams();
   const [warehouseWidth, setWarehouseWidth] = useState<number>();
   const [warehouseHeight, setWarehouseHeight] = useState<number>();
   const [warehouseWeight, setWarehouseWeight] = useState<number>();
@@ -116,7 +116,12 @@ export default function ParamsInputs() {
           </Stack>
 
           <Box marginTop={5}>
-            <Button endIcon={<Check />} type="submit" variant="contained">
+            <Button
+              disabled={generatingParams}
+              endIcon={<Check />}
+              type="submit"
+              variant="contained"
+            >
               Confirm params
             </Button>
           </Box>
