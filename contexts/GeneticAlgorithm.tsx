@@ -1,8 +1,9 @@
 import React from "react";
-import { Box } from "@/types/problem";
+import { VisualBox } from "@/types/problem";
+import { commonVisualBoxes } from "@/mocks";
 
 interface Solution {
-  boxes: Box[];
+  boxes: VisualBox[];
   fitness: number;
 }
 
@@ -23,8 +24,8 @@ export function GeneticAlgorithmProvider({
 
   const startAlgorithm = () => {
     setBestSolution({
-      boxes: [],
-      fitness: 0,
+      boxes: commonVisualBoxes,
+      fitness: 40,
     });
   };
 
