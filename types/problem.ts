@@ -10,3 +10,10 @@ export interface Box {
   weight: number;
   priceValue: number;
 }
+
+export interface VisualBox extends Box {
+  position: {
+    x: number;
+    y: number;
+  };
+}

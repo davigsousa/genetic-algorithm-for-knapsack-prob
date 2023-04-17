@@ -1,8 +1,16 @@
 import { Stack } from "@mui/material";
 import Head from "next/head";
 import Header from "@/components/header";
+import { useGeneticAlgorithm } from "@/contexts/GeneticAlgorithm";
+import { useEffect } from "react";
 
 export default function Solving() {
+  const { bestSolution, startAlgorithm } = useGeneticAlgorithm();
+
+  useEffect(() => {
+    startAlgorithm();
+  }, [startAlgorithm]);
+
   return (
     <Stack direction="column" alignItems="center" justifyContent="center">
       <Head>
@@ -22,6 +30,7 @@ export default function Solving() {
         justifyContent="center"
       >
         <Header />
+        <h1>{bestSolution?.fitness}</h1>
       </Stack>
     </Stack>
   );
