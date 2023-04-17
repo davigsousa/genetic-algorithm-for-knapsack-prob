@@ -3,8 +3,11 @@ import Head from "next/head";
 import Header from "@/components/header";
 import { useGeneticAlgorithm } from "@/contexts/GeneticAlgorithm";
 import { useEffect } from "react";
+import SolutionsCanvas from "@/components/solutions-canvas";
+import { useProblemParams } from "@/contexts/ProblemParams";
 
 export default function Solving() {
+  const { params } = useProblemParams();
   const { bestSolution, startAlgorithm } = useGeneticAlgorithm();
 
   useEffect(() => {
@@ -30,7 +33,9 @@ export default function Solving() {
         justifyContent="center"
       >
         <Header />
-        <h1>{bestSolution?.fitness}</h1>
+        {bestSolution && params && (
+          <SolutionsCanvas problemParams={params} solution={bestSolution} />
+        )}
       </Stack>
     </Stack>
   );

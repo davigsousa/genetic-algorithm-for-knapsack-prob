@@ -2,7 +2,7 @@ import { Warehouse, Box } from "@/types/problem";
 import { useRouter } from "next/router";
 import React from "react";
 
-interface ProblemParams {
+export interface ProblemParams {
   warehouse: Warehouse;
   boxes: Box[];
 }

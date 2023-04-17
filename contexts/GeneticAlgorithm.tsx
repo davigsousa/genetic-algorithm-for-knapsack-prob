@@ -1,11 +1,6 @@
-import React from "react";
-import { VisualBox } from "@/types/problem";
+import React, { useCallback } from "react";
+import { Solution } from "@/types/problem";
 import { commonVisualBoxes } from "@/mocks";
-
-interface Solution {
-  boxes: VisualBox[];
-  fitness: number;
-}
 
 interface GeneticAlgorithmContextType {
   bestSolution: Solution | null;
@@ -22,12 +17,12 @@ export function GeneticAlgorithmProvider({
 }) {
   const [bestSolution, setBestSolution] = React.useState<Solution | null>(null);
 
-  const startAlgorithm = () => {
+  const startAlgorithm = useCallback(() => {
     setBestSolution({
       boxes: commonVisualBoxes,
       fitness: 40,
     });
-  };
+  }, []);
 
   return (
     <GeneticAlgorithmContext.Provider

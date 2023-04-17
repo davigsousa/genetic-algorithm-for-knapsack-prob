@@ -17,3 +17,8 @@ export interface VisualBox extends Box {
     y: number;
   };
 }
+
+export interface Solution {
+  boxes: VisualBox[];
+  fitness: number;
+}
