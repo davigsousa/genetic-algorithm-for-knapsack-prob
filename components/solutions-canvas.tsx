@@ -1,6 +1,6 @@
 import { ProblemParams, useProblemParams } from "@/contexts/ProblemParams";
 import { Solution } from "@/types/problem";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 function getRandomHexColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);
@@ -18,9 +18,13 @@ export default function SolutionsCanvas({
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const canvasWidth = 300;
-  const canvasHeight =
-    (canvasWidth * problemParams.warehouse.height) /
-    problemParams.warehouse.width;
+  const getProportionalSize = useCallback(
+    (problemSize: number) =>
+      (problemSize * canvasWidth) / problemParams.warehouse.width,
+    [problemParams.warehouse.width, canvasWidth]
+  );
+
+  const canvasHeight = getProportionalSize(problemParams.warehouse.height);
 
   const drawSolution = useCallback(
     (context: CanvasRenderingContext2D) => {
@@ -29,10 +33,15 @@ export default function SolutionsCanvas({
 
       for (const box of solution.boxes) {
         context.fillStyle = getRandomHexColor();
-        context.fillRect(box.position.x, box.position.y, box.width, box.height);
+        context.fillRect(
+          getProportionalSize(box.position.x),
+          getProportionalSize(box.position.y),
+          getProportionalSize(box.width),
+          getProportionalSize(box.height)
+        );
       }
     },
-    [solution, canvasHeight]
+    [solution, canvasHeight, getProportionalSize]
   );
 
   useEffect(() => {
