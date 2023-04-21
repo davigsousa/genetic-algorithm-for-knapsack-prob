@@ -1,12 +1,14 @@
 import { useProblemParams } from "@/contexts/ProblemParams";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { Inventory } from "@mui/icons-material";
+import { Box as BoxType } from "@/types/problem";
 
-export default function BoxesList() {
-  const { params } = useProblemParams();
+interface BoxesListProps {
+  boxes: BoxType[];
+}
 
-  const sortedBoxes =
-    params?.boxes.sort((a, b) => b.priceValue - a.priceValue) || [];
+export default function BoxesList({ boxes }: BoxesListProps) {
+  const sortedBoxes = boxes.sort((a, b) => b.priceValue - a.priceValue) || [];
 
   return (
     <Stack width="100%" direction="column" marginTop={3}>

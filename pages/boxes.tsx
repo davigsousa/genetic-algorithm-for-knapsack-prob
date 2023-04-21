@@ -77,7 +77,7 @@ export default function Boxes() {
           </Box>
         </Box>
 
-        <BoxesList />
+        {params?.boxes && <BoxesList boxes={params.boxes} />}
       </Stack>
     </Stack>
   );
