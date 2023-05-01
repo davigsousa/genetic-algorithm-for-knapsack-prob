@@ -15,15 +15,15 @@ export function GeneticAlgorithmProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [generation, setGeneration] = React.useState<number>(1);
   const [bestSolution, setBestSolution] = React.useState<Solution | null>(null);
 
   const startAlgorithm = useCallback(() => {
-    setInterval(() => {
-      setBestSolution({
-        boxes: commonVisualBoxes,
-        fitness: Number((Math.random() * 1000).toFixed(2)),
-      });
+    const interval = setInterval(() => {
+      setGeneration((generation) => generation + 1);
     }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
