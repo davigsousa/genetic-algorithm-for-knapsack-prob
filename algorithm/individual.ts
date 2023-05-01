@@ -17,13 +17,6 @@ export class Individual {
     this.fitness = this.getFitness();
   }
 
-  static getMutatedGene(box: Box) {
-    return {
-      ...box,
-      isPresent: randomBool(),
-    };
-  }
-
   static generateChromosome(params: DriverProblemParams): Chromosome {
     const genes = [];
 
@@ -31,7 +24,10 @@ export class Individual {
     let currentArea = 0;
 
     for (const box of params.boxes) {
-      const gene = Individual.getMutatedGene(box);
+      const gene = {
+        ...box,
+        isPresent: randomBool(),
+      };
 
       gene.isPresent =
         gene.isPresent &&
@@ -59,13 +55,13 @@ export class Individual {
     let currentArea = 0;
 
     const chromosome = this.chromosome.map((gene, index) => {
-      const shouldMutate = Math.random() < 0.1;
-      if (shouldMutate) {
-        return Individual.getMutatedGene(gene);
-      }
-
       const partnerGene = partner.chromosome[index];
       let isPresent = randomBool() ? gene.isPresent : partnerGene.isPresent;
+
+      const shouldMutate = Math.random() < 0.1;
+      if (shouldMutate) {
+        isPresent = randomBool();
+      }
 
       isPresent =
         isPresent &&

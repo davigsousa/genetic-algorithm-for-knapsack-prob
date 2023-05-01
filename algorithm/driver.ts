@@ -53,6 +53,7 @@ export function nextPopulation({
     const parentB = previousPopulation[randomIndex()];
 
     const child = parentA.mate(parentB, driverProblemParams);
+
     newPopulation.push(child);
   }
 
