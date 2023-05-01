@@ -45,11 +45,18 @@ export function ProblemParamsProvider({
 
     const boxes: Box[] = [];
     for (let i = 0; i < numberOfBoxes; i++) {
+      const width = generateRandomNumber(1, warehouse.width - 1);
+      const height = generateRandomNumber(1, warehouse.height - 1);
+
       boxes.push({
-        width: generateRandomNumber(1, warehouse.width - 1),
-        height: generateRandomNumber(1, warehouse.height - 1),
+        width,
+        height,
         weight: generateRandomNumber(1, warehouse.weightLimit - 1),
         priceValue: generateRandomNumber(1, nextPrice),
+        position: {
+          x: generateRandomNumber(1, warehouse.width - (width / 2 - 1)),
+          y: generateRandomNumber(1, warehouse.height - (height / 2 - 1)),
+        },
       });
 
       nextPrice = nextPrice + generateRandomNumber(2, 4);
