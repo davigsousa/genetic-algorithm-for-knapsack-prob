@@ -35,9 +35,9 @@ export default function ParamsInputs() {
   };
 
   const fillWithRecommendedParams = () => {
-    setWarehouseWidth("100");
-    setWarehouseHeight("100");
-    setWarehouseWeight("50");
+    setWarehouseWidth("1000");
+    setWarehouseHeight("1000");
+    setWarehouseWeight("500");
     setBoxesQuantity("2000");
   };
 

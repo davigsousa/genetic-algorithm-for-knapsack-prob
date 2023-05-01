@@ -34,8 +34,8 @@ export default function SolutionsCanvas({
       for (const box of solution.boxes) {
         context.fillStyle = getRandomHexColor();
         context.fillRect(
-          getProportionalSize(box.position.x),
-          getProportionalSize(box.position.y),
+          0, // getProportionalSize(box.position.x),
+          0, // getProportionalSize(box.position.y),
           getProportionalSize(box.width),
           getProportionalSize(box.height)
         );
