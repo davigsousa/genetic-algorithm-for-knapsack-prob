@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { useGeneticAlgorithm } from "@/contexts/GeneticAlgorithm";
 import { useEffect } from "react";
 import BoxesList from "@/components/boxes-list";
+import { ProblemSummary } from "@/components/problem-summary";
 
 export default function Solving() {
   const { bestSolution, startAlgorithm } = useGeneticAlgorithm();
@@ -31,6 +32,9 @@ export default function Solving() {
         justifyContent="center"
       >
         <Header />
+
+        {bestSolution && <ProblemSummary bestSolution={bestSolution} />}
+
         {bestSolution?.boxes && <BoxesList boxes={bestSolution?.boxes} />}
       </Stack>
     </Stack>

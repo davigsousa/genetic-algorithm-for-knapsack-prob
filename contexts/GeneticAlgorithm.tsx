@@ -18,10 +18,12 @@ export function GeneticAlgorithmProvider({
   const [bestSolution, setBestSolution] = React.useState<Solution | null>(null);
 
   const startAlgorithm = useCallback(() => {
-    setBestSolution({
-      boxes: commonVisualBoxes,
-      fitness: 40,
-    });
+    setInterval(() => {
+      setBestSolution({
+        boxes: commonVisualBoxes,
+        fitness: Number((Math.random() * 1000).toFixed(2)),
+      });
+    }, 1000);
   }, []);
 
   return (
