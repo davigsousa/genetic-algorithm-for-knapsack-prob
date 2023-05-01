@@ -5,8 +5,11 @@ import { useGeneticAlgorithm } from "@/hooks/genetic-algorithm";
 import BoxesList from "@/components/boxes-list";
 import { ProblemSummary } from "@/components/problem-summary";
 import React from "react";
+import SolutionsCanvas from "@/components/solutions-canvas";
+import { useProblemParams } from "@/contexts/ProblemParams";
 
 export default function Solving() {
+  const { params } = useProblemParams();
   const { generation, bestSolution } = useGeneticAlgorithm();
 
   return (
@@ -33,9 +36,13 @@ export default function Solving() {
           Generation: {generation}
         </Typography>
 
-        {bestSolution && <ProblemSummary bestSolution={bestSolution} />}
-
-        {bestSolution?.boxes && <BoxesList boxes={bestSolution?.boxes} />}
+        {bestSolution && params && (
+          <>
+            <ProblemSummary bestSolution={bestSolution} />
+            <SolutionsCanvas solution={bestSolution} problemParams={params} />
+            <BoxesList boxes={bestSolution.boxes} />
+          </>
+        )}
       </Stack>
     </Stack>
   );

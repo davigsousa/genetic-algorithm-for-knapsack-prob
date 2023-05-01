@@ -1,6 +1,7 @@
 import { Warehouse, Box } from "@/types/problem";
 import { useRouter } from "next/router";
 import React from "react";
+import { generateRandomNumber, getRandomHexColor } from "@/utils/random";
 
 export interface ProblemParams {
   populationSize: number;
@@ -22,6 +23,23 @@ interface ProblemParamsContextType {
 export const ProblemParamsContext =
   React.createContext<ProblemParamsContextType | null>(null);
 
+function generateBox(warehouse: Warehouse, priceLimit: number) {
+  const width = generateRandomNumber(1, warehouse.width - 1);
+  const height = generateRandomNumber(1, warehouse.height - 1);
+
+  return {
+    width,
+    height,
+    weight: generateRandomNumber(1, warehouse.weightLimit - 1),
+    priceValue: generateRandomNumber(1, priceLimit),
+    position: {
+      x: generateRandomNumber(1, warehouse.width - (width / 2 - 1)),
+      y: generateRandomNumber(1, warehouse.height - (height / 2 - 1)),
+    },
+    color: getRandomHexColor(),
+  };
+}
+
 export function ProblemParamsProvider({
   children,
 }: {
@@ -38,26 +56,12 @@ export function ProblemParamsProvider({
   }: ParamsInputs) => {
     setGeneratingParams(true);
 
-    const generateRandomNumber = (min: number = 1, max: number = 10) =>
-      Math.floor(Math.random() * (max - min + 1)) + min;
-
     let nextPrice = 1;
-
     const boxes: Box[] = [];
-    for (let i = 0; i < numberOfBoxes; i++) {
-      const width = generateRandomNumber(1, warehouse.width - 1);
-      const height = generateRandomNumber(1, warehouse.height - 1);
 
-      boxes.push({
-        width,
-        height,
-        weight: generateRandomNumber(1, warehouse.weightLimit - 1),
-        priceValue: generateRandomNumber(1, nextPrice),
-        position: {
-          x: generateRandomNumber(1, warehouse.width - (width / 2 - 1)),
-          y: generateRandomNumber(1, warehouse.height - (height / 2 - 1)),
-        },
-      });
+    for (let i = 0; i < numberOfBoxes; i++) {
+      const box = generateBox(warehouse, nextPrice);
+      boxes.push(box);
 
       nextPrice = nextPrice + generateRandomNumber(2, 4);
     }

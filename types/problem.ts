@@ -13,6 +13,7 @@ export interface Box {
     x: number;
     y: number;
   };
+  color: string;
 }
 
 export interface Solution {

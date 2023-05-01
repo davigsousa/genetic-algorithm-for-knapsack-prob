@@ -2,10 +2,6 @@ import { ProblemParams, useProblemParams } from "@/contexts/ProblemParams";
 import { Solution } from "@/types/problem";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
-function getRandomHexColor() {
-  return "#" + Math.floor(Math.random() * 16777215).toString(16);
-}
-
 interface SolutionsCanvasProps {
   solution: Solution;
   problemParams: ProblemParams;
@@ -32,10 +28,10 @@ export default function SolutionsCanvas({
       context.fillRect(0, 0, canvasWidth, canvasHeight);
 
       for (const box of solution.boxes) {
-        context.fillStyle = getRandomHexColor();
+        context.fillStyle = box.color;
         context.fillRect(
-          0, // getProportionalSize(box.position.x),
-          0, // getProportionalSize(box.position.y),
+          getProportionalSize(box.position?.x || 0),
+          getProportionalSize(box.position?.y || 0),
           getProportionalSize(box.width),
           getProportionalSize(box.height)
         );
