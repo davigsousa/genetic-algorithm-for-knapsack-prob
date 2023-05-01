@@ -1,4 +1,3 @@
-import { useProblemParams } from "@/contexts/ProblemParams";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { Inventory } from "@mui/icons-material";
 import { Box as BoxType } from "@/types/problem";

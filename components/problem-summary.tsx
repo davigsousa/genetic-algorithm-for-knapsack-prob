@@ -1,5 +1,6 @@
 import { useProblemParams } from "@/contexts/ProblemParams";
 import { Solution } from "@/types/problem";
+import { AttachMoney, Inventory, Map } from "@mui/icons-material";
 import { Stack, Typography, Box } from "@mui/material";
 
 interface ProblemSummaryProps {
@@ -19,16 +20,20 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
 
   const summaryItems = [
     {
+      Icon: AttachMoney,
+      title: "Value",
+      value: `${bestSolution.fitness}`,
+      isValue: true,
+    },
+    {
+      Icon: Inventory,
       title: "Boxes",
       value: `${bestSolution.boxes.length} / ${params?.boxes.length}`,
     },
     {
+      Icon: Map,
       title: "Area",
       value: `${solutionArea} / ${warehouseArea}`,
-    },
-    {
-      title: "Value",
-      value: `$${bestSolution.fitness}`,
     },
   ];
 
@@ -41,11 +46,23 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
       <Stack direction="row" spacing={2}>
         {summaryItems.map((item) => (
           <Box key={item.title} display="flex" flexDirection="column">
-            <Typography variant="h6" gutterBottom>
-              {item.title}
-            </Typography>
+            <Typography variant="h6">{item.title}</Typography>
 
-            <Typography variant="body1" gutterBottom>
+            <Typography
+              color={item.isValue ? "green" : "black"}
+              variant={item.isValue ? "h6" : "body1"}
+              gutterBottom
+              display="flex"
+              alignItems="center"
+            >
+              <Box
+                marginRight={item.title !== "Value" ? 1 : 0}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                {<item.Icon />}
+              </Box>
               {item.value}
             </Typography>
           </Box>
