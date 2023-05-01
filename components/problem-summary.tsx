@@ -3,7 +3,6 @@ import { Solution } from "@/types/problem";
 import {
   AttachMoney,
   Inventory,
-  Lightbulb,
   LineWeight,
   Map,
   TipsAndUpdates,
