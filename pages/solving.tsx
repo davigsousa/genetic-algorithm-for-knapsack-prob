@@ -2,16 +2,14 @@ import { Stack } from "@mui/material";
 import Head from "next/head";
 import Header from "@/components/header";
 import { useGeneticAlgorithm } from "@/contexts/GeneticAlgorithm";
-import { useEffect } from "react";
 import BoxesList from "@/components/boxes-list";
 import { ProblemSummary } from "@/components/problem-summary";
+import React, { useEffect } from "react";
 
 export default function Solving() {
-  const { bestSolution, startAlgorithm } = useGeneticAlgorithm();
+  const { generation, bestSolution, startAlgorithm } = useGeneticAlgorithm();
 
-  useEffect(() => {
-    startAlgorithm();
-  }, [startAlgorithm]);
+  useEffect(startAlgorithm, [startAlgorithm]);
 
   return (
     <Stack direction="column" alignItems="center" justifyContent="center">
@@ -32,6 +30,8 @@ export default function Solving() {
         justifyContent="center"
       >
         <Header />
+
+        <h1>Generation {generation}</h1>
 
         {bestSolution && <ProblemSummary bestSolution={bestSolution} />}
 
