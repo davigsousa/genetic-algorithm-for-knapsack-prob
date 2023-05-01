@@ -39,6 +39,9 @@ export function GeneticAlgorithmProvider({
   const [bestSolution, setBestSolution] = React.useState<Solution | null>(null);
 
   useEffect(() => {
+    setGeneration(0);
+    setBestSolution(null);
+
     workerRef.current = new Worker(
       new URL("../workers/runAlgorithm.ts", import.meta.url)
     );
