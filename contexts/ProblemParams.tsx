@@ -49,7 +49,7 @@ export function ProblemParamsProvider({
         width: generateRandomNumber(1, warehouse.width - 1),
         height: generateRandomNumber(1, warehouse.height - 1),
         weight: generateRandomNumber(1, warehouse.weightLimit - 1),
-        priceValue: nextPrice,
+        priceValue: generateRandomNumber(1, nextPrice),
       });
 
       nextPrice = nextPrice + generateRandomNumber(2, 4);

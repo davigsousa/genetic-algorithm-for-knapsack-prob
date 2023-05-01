@@ -39,7 +39,7 @@ export function useGeneticAlgorithm() {
         const { generation, population } = payload;
         const bestSolution = getBestSolutionFromPopulation(population);
 
-        setGeneration(generation / LOG_ON_GENERATION);
+        setGeneration(generation);
         setBestSolution(bestSolution);
       }
     };

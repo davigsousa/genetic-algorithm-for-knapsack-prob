@@ -1,6 +1,6 @@
 import { useProblemParams } from "@/contexts/ProblemParams";
 import { Solution } from "@/types/problem";
-import { AttachMoney, Inventory, Map } from "@mui/icons-material";
+import { AttachMoney, Inventory, LineWeight, Map } from "@mui/icons-material";
 import { Stack, Typography, Box } from "@mui/material";
 
 interface ProblemSummaryProps {
@@ -15,6 +15,10 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
     : 0;
   const solutionArea = bestSolution.boxes.reduce(
     (acc, box) => acc + box.width * box.height,
+    0
+  );
+  const solutionWeight = bestSolution.boxes.reduce(
+    (acc, box) => acc + box.weight,
     0
   );
 
@@ -35,12 +39,17 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
       title: "Area",
       value: `${solutionArea} / ${warehouseArea}`,
     },
+    {
+      Icon: LineWeight,
+      title: "Weight",
+      value: `${solutionWeight} / ${params?.warehouse.weightLimit}`,
+    },
   ];
 
   return (
     <Stack mt={3} width="100%">
       <Typography variant="h4" gutterBottom>
-        Problem summary
+        Best Solution
       </Typography>
 
       <Stack direction="row" spacing={2}>

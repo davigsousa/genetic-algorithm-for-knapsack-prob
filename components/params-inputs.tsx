@@ -38,7 +38,7 @@ export default function ParamsInputs() {
     setWarehouseWidth("100");
     setWarehouseHeight("100");
     setWarehouseWeight("50");
-    setBoxesQuantity("20");
+    setBoxesQuantity("2000");
   };
 
   return (

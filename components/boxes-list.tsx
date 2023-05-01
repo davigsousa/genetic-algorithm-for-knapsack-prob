@@ -40,7 +40,7 @@ export default function BoxesList({ boxes }: BoxesListProps) {
                 padding={1}
               >
                 <Typography color="green" variant="h6" component="span">
-                  ${box.priceValue.toFixed(2)}
+                  ${box.priceValue}
                 </Typography>
                 <Typography variant="body2" component="span">
                   Weight: {box.weight} kg

@@ -30,7 +30,7 @@ export default function Solving() {
         <Header />
 
         <Typography mt={3} variant="h4" component="h1" gutterBottom>
-          Generation: {generation}K
+          Generation: {generation}
         </Typography>
 
         {bestSolution && <ProblemSummary bestSolution={bestSolution} />}
