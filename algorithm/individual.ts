@@ -32,6 +32,11 @@ export class Individual {
     return genes;
   }
 
+  static generate(boxes: Box[]): Individual {
+    const chromosome = Individual.generateChromosome(boxes);
+    return new Individual(chromosome);
+  }
+
   mate(partner: Individual): Individual {
     const chromosome = this.chromosome.map((gene, index) => {
       const shouldMutate = Math.random() < 0.1;

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 
 export interface ProblemParams {
+  populationSize: number;
   warehouse: Warehouse;
   boxes: Box[];
 }
@@ -50,7 +51,7 @@ export function ProblemParamsProvider({
       });
     }
 
-    setParams({ warehouse, boxes });
+    setParams({ warehouse, boxes, populationSize: 100 });
     setGeneratingParams(false);
     router.push("/boxes");
   };
