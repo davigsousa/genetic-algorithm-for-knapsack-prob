@@ -9,6 +9,11 @@ export interface Box {
   width: number;
   weight: number;
   priceValue: number;
+  position?: {
+    x: number;
+    y: number;
+  };
+  color: string;
 }
 
 export interface Solution {
