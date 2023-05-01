@@ -13,7 +13,7 @@ async function executeAlgorithm(
   let generation = 1;
 
   while (true) {
-    current = nextPopulation({ params, population });
+    current = nextPopulation({ params, population: current });
 
     generation += 1;
     if (generation % LOG_ON_GENERATION === 0) {
