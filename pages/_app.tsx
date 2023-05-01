@@ -7,14 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
-import { GeneticAlgorithmProvider } from "@/contexts/GeneticAlgorithm";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ProblemParamsProvider>
-      <GeneticAlgorithmProvider>
-        <Component {...pageProps} />
-      </GeneticAlgorithmProvider>
+      <Component {...pageProps} />
       <ToastContainer />
     </ProblemParamsProvider>
   );

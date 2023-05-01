@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { Solution } from "@/types/problem";
 import { Actions } from "@/workers/actions";
-import { useProblemParams } from "./ProblemParams";
 import { Individual } from "@/algorithm/individual";
-import { useRouter } from "next/router";
+import { useProblemParams } from "@/contexts/ProblemParams";
 
 function getBestSolutionFromPopulation(population: Individual[]): Solution {
   const bestSolution = population.reduce((best, current) => {
@@ -20,41 +19,14 @@ function getBestSolutionFromPopulation(population: Individual[]): Solution {
   };
 }
 
-interface GeneticAlgorithmContextType {
-  generation: number;
-  bestSolution: Solution | null;
-  startAlgorithm: () => void;
-}
-
-export const GeneticAlgorithmContext =
-  React.createContext<GeneticAlgorithmContextType | null>(null);
-
-export function GeneticAlgorithmProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
+export function useGeneticAlgorithm() {
   const workerRef = useRef<Worker>();
   const { params } = useProblemParams();
+
   const [generation, setGeneration] = React.useState<number>(0);
   const [bestSolution, setBestSolution] = React.useState<Solution | null>(null);
 
-  const terminateWebWorker = useCallback(() => {
-    workerRef.current?.terminate();
-  }, []);
-
-  // Make sure worker is terminated when leaving the page
   useEffect(() => {
-    if (router.pathname !== "/solving") {
-      terminateWebWorker();
-    }
-  }, [router.pathname, terminateWebWorker]);
-
-  useEffect(() => {
-    setGeneration(0);
-    setBestSolution(null);
-
     workerRef.current = new Worker(
       new URL("../workers/runAlgorithm.ts", import.meta.url)
     );
@@ -72,9 +44,9 @@ export function GeneticAlgorithmProvider({
     };
 
     return () => {
-      terminateWebWorker();
+      workerRef.current?.terminate();
     };
-  }, [params, terminateWebWorker]);
+  }, [params]);
 
   const startAlgorithm = useCallback(() => {
     if (!params) return;
@@ -88,27 +60,10 @@ export function GeneticAlgorithmProvider({
     });
   }, [params]);
 
-  return (
-    <GeneticAlgorithmContext.Provider
-      value={{
-        generation,
-        bestSolution,
-        startAlgorithm,
-      }}
-    >
-      {children}
-    </GeneticAlgorithmContext.Provider>
-  );
-}
+  useEffect(startAlgorithm, [startAlgorithm]);
 
-export function useGeneticAlgorithm() {
-  const context = React.useContext(GeneticAlgorithmContext);
-
-  if (!context) {
-    throw new Error(
-      "useGeneticAlgorithm must be used within a GeneticAlgorithmProvider"
-    );
-  }
-
-  return context;
+  return {
+    generation,
+    bestSolution,
+  };
 }
