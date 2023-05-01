@@ -41,14 +41,18 @@ export function ProblemParamsProvider({
     const generateRandomNumber = (min: number = 1, max: number = 10) =>
       Math.floor(Math.random() * (max - min + 1)) + min;
 
+    let nextPrice = 1;
+
     const boxes: Box[] = [];
     for (let i = 0; i < numberOfBoxes; i++) {
       boxes.push({
         width: generateRandomNumber(1, warehouse.width - 1),
         height: generateRandomNumber(1, warehouse.height - 1),
         weight: generateRandomNumber(1, warehouse.weightLimit - 1),
-        priceValue: generateRandomNumber(1, 50),
+        priceValue: nextPrice,
       });
+
+      nextPrice = nextPrice + generateRandomNumber(2, 4);
     }
 
     setParams({ warehouse, boxes, populationSize: 100 });
