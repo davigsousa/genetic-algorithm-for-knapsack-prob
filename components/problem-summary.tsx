@@ -1,6 +1,13 @@
 import { useProblemParams } from "@/contexts/ProblemParams";
 import { Solution } from "@/types/problem";
-import { AttachMoney, Inventory, LineWeight, Map } from "@mui/icons-material";
+import {
+  AttachMoney,
+  Inventory,
+  Lightbulb,
+  LineWeight,
+  Map,
+  TipsAndUpdates,
+} from "@mui/icons-material";
 import { Stack, Typography, Box } from "@mui/material";
 
 interface ProblemSummaryProps {
@@ -24,12 +31,6 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
 
   const summaryItems = [
     {
-      Icon: AttachMoney,
-      title: "Value",
-      value: `${bestSolution.fitness}`,
-      isValue: true,
-    },
-    {
       Icon: Inventory,
       title: "Boxes",
       value: `${bestSolution.boxes.length} / ${params?.boxes.length}`,
@@ -44,22 +45,36 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
       title: "Weight",
       value: `${solutionWeight} / ${params?.warehouse.weightLimit}`,
     },
+    {
+      Icon: AttachMoney,
+      title: "Total price",
+      value: `${bestSolution.fitness}`,
+      isValue: true,
+    },
   ];
 
   return (
     <Stack mt={3} width="100%">
       <Typography variant="h4" gutterBottom>
+        <TipsAndUpdates style={{ marginRight: 5 }} />
         Best Solution
       </Typography>
 
-      <Stack direction="row" spacing={2}>
+      <Stack
+        direction="column"
+        flexWrap="wrap"
+        spacing={1}
+        justifyContent="center"
+      >
         {summaryItems.map((item) => (
           <Box key={item.title} display="flex" flexDirection="column">
-            <Typography variant="h6">{item.title}</Typography>
+            <Typography variant="body1" display="flex" alignItems="center">
+              {item.title}
+            </Typography>
 
             <Typography
               color={item.isValue ? "green" : "black"}
-              variant={item.isValue ? "h6" : "body1"}
+              variant={"h6"}
               gutterBottom
               display="flex"
               alignItems="center"
