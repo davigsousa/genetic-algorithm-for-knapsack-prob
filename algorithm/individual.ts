@@ -1,4 +1,5 @@
 import { Box } from "@/types/problem";
+import { DriverProblemParams } from "./driver";
 
 interface Gene extends Box {
   isPresent: boolean;
@@ -23,23 +24,40 @@ export class Individual {
     };
   }
 
-  static generateChromosome(boxes: Box[]): Chromosome {
+  static generateChromosome(params: DriverProblemParams): Chromosome {
     const genes = [];
 
-    for (const box of boxes) {
+    let currentWeight = 0;
+    let currentArea = 0;
+
+    for (const box of params.boxes) {
       const gene = Individual.getMutatedGene(box);
+
+      gene.isPresent =
+        gene.isPresent &&
+        !params.exceedsArea(gene, currentArea) &&
+        !params.exceedsWeight(gene, currentWeight);
+
+      if (gene.isPresent) {
+        currentWeight += gene.weight;
+        currentArea += gene.width * gene.height;
+      }
+
       genes.push(gene);
     }
 
     return genes;
   }
 
-  static generate(boxes: Box[]): Individual {
-    const chromosome = Individual.generateChromosome(boxes);
+  static generate(params: DriverProblemParams): Individual {
+    const chromosome = Individual.generateChromosome(params);
     return new Individual(chromosome);
   }
 
-  mate(partner: Individual): Individual {
+  mate(partner: Individual, params: DriverProblemParams): Individual {
+    let currentWeight = 0;
+    let currentArea = 0;
+
     const chromosome = this.chromosome.map((gene, index) => {
       const shouldMutate = Math.random() < 0.1;
       if (shouldMutate) {
@@ -47,7 +65,17 @@ export class Individual {
       }
 
       const partnerGene = partner.chromosome[index];
-      const isPresent = randomBool() ? gene.isPresent : partnerGene.isPresent;
+      let isPresent = randomBool() ? gene.isPresent : partnerGene.isPresent;
+
+      isPresent =
+        isPresent &&
+        !params.exceedsArea(gene, currentArea) &&
+        !params.exceedsWeight(gene, currentWeight);
+
+      if (isPresent) {
+        currentWeight += gene.weight;
+        currentArea += gene.width * gene.height;
+      }
 
       return { ...gene, isPresent };
     });
