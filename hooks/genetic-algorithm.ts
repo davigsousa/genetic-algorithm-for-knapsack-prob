@@ -3,6 +3,7 @@ import { Solution } from "@/types/problem";
 import { Actions } from "@/workers/actions";
 import { Individual } from "@/algorithm/individual";
 import { useProblemParams } from "@/contexts/ProblemParams";
+import { LOG_ON_GENERATION } from "@/workers/runAlgorithm";
 
 function getBestSolutionFromPopulation(population: Individual[]): Solution {
   const bestSolution = population.reduce((best, current) => {
@@ -38,7 +39,7 @@ export function useGeneticAlgorithm() {
         const { generation, population } = payload;
         const bestSolution = getBestSolutionFromPopulation(population);
 
-        setGeneration(generation / 1000);
+        setGeneration(generation / LOG_ON_GENERATION);
         setBestSolution(bestSolution);
       }
     };

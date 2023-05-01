@@ -3,7 +3,7 @@ import { Individual } from "@/algorithm/individual";
 import { ProblemParams } from "@/contexts/ProblemParams";
 import { Actions } from "./actions";
 
-const LOG_ON_GENERATION = 1000;
+export const LOG_ON_GENERATION = 100;
 
 async function executeAlgorithm(
   params: ProblemParams,
