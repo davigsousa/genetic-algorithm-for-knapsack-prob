@@ -22,6 +22,7 @@ export function nextPopulation({
   previousPopulation.sort((a, b) => {
     return b.fitness - a.fitness;
   });
+  console.log(previousPopulation[0].fitness);
 
   // 10% Elitism
   const tenPercent = params.populationSize * 0.1;

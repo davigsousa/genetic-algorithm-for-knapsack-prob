@@ -3,6 +3,7 @@ import { Solution } from "@/types/problem";
 import { Actions } from "@/workers/actions";
 import { useProblemParams } from "./ProblemParams";
 import { Individual } from "@/algorithm/individual";
+import { useRouter } from "next/router";
 
 function getBestSolutionFromPopulation(population: Individual[]): Solution {
   const bestSolution = population.reduce((best, current) => {
@@ -33,10 +34,22 @@ export function GeneticAlgorithmProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const workerRef = useRef<Worker>();
   const { params } = useProblemParams();
   const [generation, setGeneration] = React.useState<number>(0);
   const [bestSolution, setBestSolution] = React.useState<Solution | null>(null);
+
+  const terminateWebWorker = useCallback(() => {
+    workerRef.current?.terminate();
+  }, []);
+
+  // Make sure worker is terminated when leaving the page
+  useEffect(() => {
+    if (router.pathname !== "/solving") {
+      terminateWebWorker();
+    }
+  }, [router.pathname, terminateWebWorker]);
 
   useEffect(() => {
     setGeneration(0);
@@ -59,9 +72,9 @@ export function GeneticAlgorithmProvider({
     };
 
     return () => {
-      workerRef.current?.terminate();
+      terminateWebWorker();
     };
-  }, [params]);
+  }, [params, terminateWebWorker]);
 
   const startAlgorithm = useCallback(() => {
     if (!params) return;
