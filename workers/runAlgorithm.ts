@@ -3,7 +3,7 @@ import { Individual } from "@/algorithm/individual";
 import { ProblemParams } from "@/contexts/ProblemParams";
 import { Actions } from "./actions";
 
-const LOG_ON_GENERATION = 10;
+const LOG_ON_GENERATION = 1000;
 let shouldRunAlgorithm = false;
 
 async function executeAlgorithm(
@@ -23,10 +23,12 @@ async function executeAlgorithm(
 
     generation += 1;
     if (generation % LOG_ON_GENERATION === 0) {
-      console.log(`Generation: ${generation}`);
       postMessage({
-        action: Actions.UPDATE_GENERATION,
-        payload: { generation },
+        action: Actions.UPDATE_SOLUTION,
+        payload: {
+          generation,
+          population: current,
+        },
       });
     }
   }

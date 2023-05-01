@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Head from "next/head";
 import Header from "@/components/header";
 import { useGeneticAlgorithm } from "@/contexts/GeneticAlgorithm";
@@ -31,7 +31,9 @@ export default function Solving() {
       >
         <Header />
 
-        <h1>Generation {generation}</h1>
+        <Typography mt={3} variant="h4" component="h1" gutterBottom>
+          Generation: {generation}K
+        </Typography>
 
         {bestSolution && <ProblemSummary bestSolution={bestSolution} />}
 

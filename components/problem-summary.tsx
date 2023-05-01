@@ -55,14 +55,7 @@ export function ProblemSummary({ bestSolution }: ProblemSummaryProps) {
               display="flex"
               alignItems="center"
             >
-              <Box
-                marginRight={item.title !== "Value" ? 1 : 0}
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                {<item.Icon />}
-              </Box>
+              {<item.Icon style={{ marginRight: item.isValue ? 0 : 1 }} />}
               {item.value}
             </Typography>
           </Box>

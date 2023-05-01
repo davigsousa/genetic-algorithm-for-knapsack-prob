@@ -9,9 +9,11 @@ const randomBool = () => Math.random() < 0.5;
 
 export class Individual {
   chromosome: Chromosome;
+  fitness: number;
 
   constructor(chromosome: Chromosome) {
     this.chromosome = chromosome;
+    this.fitness = this.getFitness();
   }
 
   static getMutatedGene(box: Box) {
@@ -53,7 +55,7 @@ export class Individual {
     return new Individual(chromosome);
   }
 
-  getFitness(): number {
+  private getFitness(): number {
     return this.chromosome.reduce((acc, gene) => {
       if (gene.isPresent) {
         return acc + gene.priceValue;

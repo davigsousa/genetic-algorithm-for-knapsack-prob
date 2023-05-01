@@ -11,14 +11,7 @@ export interface Box {
   priceValue: number;
 }
 
-export interface VisualBox extends Box {
-  position: {
-    x: number;
-    y: number;
-  };
-}
-
 export interface Solution {
-  boxes: VisualBox[];
+  boxes: Box[];
   fitness: number;
 }

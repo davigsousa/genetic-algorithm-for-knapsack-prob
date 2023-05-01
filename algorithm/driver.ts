@@ -20,7 +20,7 @@ export function nextPopulation({
   }
 
   previousPopulation.sort((a, b) => {
-    return b.getFitness() - a.getFitness();
+    return b.fitness - a.fitness;
   });
 
   // 10% Elitism

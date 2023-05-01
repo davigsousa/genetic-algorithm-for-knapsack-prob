@@ -1,8 +1,23 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { Solution } from "@/types/problem";
-import { commonVisualBoxes } from "@/mocks";
 import { Actions } from "@/workers/actions";
 import { useProblemParams } from "./ProblemParams";
+import { Individual } from "@/algorithm/individual";
+
+function getBestSolutionFromPopulation(population: Individual[]): Solution {
+  const bestSolution = population.reduce((best, current) => {
+    if (best.fitness > current.fitness) {
+      return best;
+    }
+
+    return current;
+  }, population[0]);
+
+  return {
+    boxes: bestSolution.chromosome.filter((gene) => gene.isPresent),
+    fitness: bestSolution.fitness,
+  };
+}
 
 interface GeneticAlgorithmContextType {
   generation: number;
@@ -29,7 +44,15 @@ export function GeneticAlgorithmProvider({
     );
 
     workerRef.current.onmessage = (event: MessageEvent) => {
-      setGeneration(event.data.payload.generation);
+      const { action, payload } = event.data;
+
+      if (action === Actions.UPDATE_SOLUTION) {
+        const { generation, population } = payload;
+        const bestSolution = getBestSolutionFromPopulation(population);
+
+        setGeneration(generation / 1000);
+        setBestSolution(bestSolution);
+      }
     };
 
     return () => {
